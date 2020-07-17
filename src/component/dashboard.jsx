@@ -6,6 +6,7 @@ import {
   Dropdown,
   Label,
   Form,
+  Pagination,
 } from "semantic-ui-react";
 
 import DatePicker from "react-datepicker";
@@ -38,7 +39,7 @@ class Dashboard extends Component {
     return (
       <div>
         {/* navbar */}
-        <div className="ui container menu-background">
+        <div className="ui container background-image">
           <Menu secondary>
             <Form>
               <Form.Group>
@@ -314,90 +315,7 @@ class Dashboard extends Component {
                 <nobr> Falcon 9 </nobr>
               </td>
             </tr>
-            <tr>
-              <td data-column="Launched (UTC)">
-                {" "}
-                <nobr> 30 Jun 2020 20:10:00 </nobr>
-              </td>
-              <td data-column="Location">
-                {" "}
-                <nobr> CCAFS SLC-40 </nobr>
-              </td>
-              <td data-column="Mission">
-                {" "}
-                <nobr> Crew Dragon Demo 2 </nobr>
-              </td>
-              <td data-column="Orbit">
-                {" "}
-                <nobr> MEO </nobr>
-              </td>
-              <td data-column="Launch Status">
-                {" "}
-                <nobr>
-                  {" "}
-                  <div class="ui medium label green">success</div>{" "}
-                </nobr>
-              </td>
-              <td data-column="Rocket">
-                {" "}
-                <nobr> Falcon 9 </nobr>
-              </td>
-            </tr>
-            <tr>
-              <td data-column="Launched (UTC)">
-                {" "}
-                <nobr> 30 Jun 2020 20:10:00 </nobr>
-              </td>
-              <td data-column="Location">
-                {" "}
-                <nobr> CCAFS SLC-40 </nobr>
-              </td>
-              <td data-column="Mission">
-                {" "}
-                <nobr> Crew Dragon Demo 2 </nobr>
-              </td>
-              <td data-column="Orbit">
-                {" "}
-                <nobr> MEO </nobr>
-              </td>
-              <td data-column="Launch Status">
-                {" "}
-                <nobr>
-                  {" "}
-                  <div class="ui medium label green">success</div>{" "}
-                </nobr>
-              </td>
-              <td data-column="Rocket">
-                {" "}
-                <nobr> Falcon 9 </nobr>
-              </td>
-            </tr>
-            <tr>
-              <td data-column="Launched (UTC)">
-                {" "}
-                <nobr> 30 Jun 2020 20:10:00 </nobr>
-              </td>
-              <td data-column="Location">
-                {" "}
-                <nobr> Kwajalein Atoll Omelek Island</nobr>
-              </td>
-              <td data-column="Mission">
-                {" "}
-                <nobr> Crew Dragon Demo 2 </nobr>
-              </td>
-              <td data-column="Orbit">
-                {" "}
-                <nobr> MEO </nobr>
-              </td>
-              <td data-column="Launch Status">
-                {" "}
-                <nobr> Success </nobr>
-              </td>
-              <td data-column="Rocket">
-                {" "}
-                <nobr> Falcon 9 </nobr>
-              </td>
-            </tr>
+
             <tr>
               <td data-column="Launched (UTC)">
                 {" "}
@@ -477,7 +395,36 @@ class Dashboard extends Component {
                 {" "}
                 <nobr>
                   {" "}
-                  <div class="ui medium label red">Fail</div>{" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
                 </nobr>
               </td>
               <td data-column="Rocket">
@@ -487,6 +434,16 @@ class Dashboard extends Component {
             </tr>
           </tbody>
         </table>
+        <div className="text-align-center pagination-component-wrapper ">
+          <Pagination
+            activePage={4}
+            boundaryRange={1}
+            // onPageChange={this.handlePaginationChange}
+            size="small"
+            siblingRange={1}
+            totalPages={10}
+          />
+        </div>
       </div>
     );
   }
