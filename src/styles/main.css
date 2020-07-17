@@ -1,5 +1,4 @@
 body {
-  /* background: url(https://images8.alphacoders.com/793/thumb-1920-793191.png); */
   background: url(https://www.pngkey.com/png/detail/65-650095_of-blog-background-and-cloud-png-back-is.png);
   background-repeat: no-repeat;
   background-position: center;
@@ -17,7 +16,41 @@ body {
 }
 .search-lable-container {
   max-width: 850px !important;
-  /* background-color: teal; */
   margin: 0 auto;
   padding: 0 20px;
+}
+/* table design */
+table {
+  max-width: 950px !important;
+  border-collapse: collapse !important;
+  margin: 20px auto !important;
+  font-size: 16x;
+}
+
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+tr:nth-of-type(even) {
+  background: white;
+}
+
+th {
+  background: #3498db;
+  background-color: teal;
+  color: white;
+  font-weight: bold;
+}
+
+td,
+th {
+  padding: 12px 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  text-align: center;
+}
+.text-align-center {
+  text-align: center;
+}
+.menu-background {
+  background-color: white;
 }

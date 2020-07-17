@@ -37,6 +37,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        {/* navbar */}
         <div className="ui container menu-background">
           <Menu secondary>
             <Form>
@@ -110,6 +111,382 @@ class Dashboard extends Component {
             </Label>
           </Label.Group>
         </div>
+
+        {/* list */}
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <nobr> Launched (UTC) </nobr>
+              </th>
+              <th>
+                {" "}
+                <nobr> Location </nobr>
+              </th>
+              <th>
+                {" "}
+                <nobr> Mission </nobr>
+              </th>
+              <th>
+                {" "}
+                <nobr> Orbit </nobr>
+              </th>
+              <th>
+                {/* Launch Status */}
+
+                <nobr> Launch Status</nobr>
+              </th>
+              <th>
+                {" "}
+                <nobr> Rocket </nobr>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr> Success </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> Kwajalein Atoll Omelek Island</nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr> Success </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label yellow">Upcomming</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label green">success</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td data-column="Launched (UTC)">
+                {" "}
+                <nobr> 30 Jun 2020 20:10:00 </nobr>
+              </td>
+              <td data-column="Location">
+                {" "}
+                <nobr> CCAFS SLC-40 </nobr>
+              </td>
+              <td data-column="Mission">
+                {" "}
+                <nobr> Crew Dragon Demo 2 </nobr>
+              </td>
+              <td data-column="Orbit">
+                {" "}
+                <nobr> MEO </nobr>
+              </td>
+              <td data-column="Launch Status">
+                {" "}
+                <nobr>
+                  {" "}
+                  <div class="ui medium label red">Fail</div>{" "}
+                </nobr>
+              </td>
+              <td data-column="Rocket">
+                {" "}
+                <nobr> Falcon 9 </nobr>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     );
   }
