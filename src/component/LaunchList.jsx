@@ -26,8 +26,8 @@ class LaunchList extends Component {
     content: {
       position: "absolute",
       top: "40px",
-      left: "40px",
-      right: "40px",
+      // left: "40px",
+      // right: "40px",
       bottom: "40px",
       border: "1px solid #ccc",
       background: "#fff",
@@ -36,8 +36,9 @@ class LaunchList extends Component {
       borderRadius: "4px",
       outline: "none",
       padding: "20px",
-      width: "600px",
+      "max-width": "640px",
       margin: "0 auto",
+      zIndex: 1000,
     },
   };
 

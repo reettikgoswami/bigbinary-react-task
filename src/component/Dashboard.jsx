@@ -38,7 +38,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalIsOpen: true,
+      modalIsOpen: false,
     };
   }
 
@@ -92,45 +92,50 @@ class Dashboard extends Component {
         )}
 
         <div className="ui container">
-          <Menu secondary>
-            <Form>
-              <Form.Group>
-                <Menu.Item>
-                  <Form.Field className="text-align-center">
-                    <label>Start Date</label>
-                    <DatePicker
-                      // selected="2020/7/7"
-                      selectsStart
-                      isClearable
-                      showYearDropdown
-                      placeholderText="Start Date"
-                    />
-                  </Form.Field>
-                </Menu.Item>
+          <div className="flex-nav">
+            <div className="flex-nav">
+              <Form>
+                <div className="flex-nav filter-inputs-extra-margin">
+                  <Form.Group>
+                    <Form.Field className=" text-align-center">
+                      <label>Start Date</label>
+                      <DatePicker
+                        // selected="2020/7/7"
+                        selectsStart
+                        isClearable
+                        showYearDropdown
+                        placeholderText="Start Date"
+                      />
+                    </Form.Field>
 
-                <Menu.Item>
-                  <Form.Field className="text-align-center">
-                    <label>End Date</label>
-                    <DatePicker
-                      // selected="2020/8/8"
-                      selectsStart
-                      isClearable
-                      showYearDropdown
-                      placeholderText="End Date"
-                    />
-                  </Form.Field>
-                </Menu.Item>
-              </Form.Group>
-            </Form>
-            <Menu.Menu position="right">
-              <Menu.Item>
-                <Form.Field>
-                  <Checkbox toggle label="Disabled" />
-                </Form.Field>
-              </Menu.Item>
-
-              <Menu.Item>
-                <Dropdown text="All Launches" icon="filter">
+                    <Form.Field className=" text-align-center">
+                      <label>End Date</label>
+                      <DatePicker
+                        // selected="2020/8/8"
+                        selectsStart
+                        isClearable
+                        showYearDropdown
+                        placeholderText="End Date"
+                      />
+                    </Form.Field>
+                  </Form.Group>
+                </div>
+              </Form>
+            </div>
+            <div className="flex-nav">
+              <Form.Field className="filter-inputs-extra-margin">
+                <Checkbox
+                  className="filter-inputs-font-style"
+                  toggle
+                  label="Upcomming Launches"
+                />
+              </Form.Field>
+              <Form.Field className="filter-inputs-extra-margin">
+                <Dropdown
+                  className="filter-inputs-font-style"
+                  icon="filter"
+                  text="All Launches"
+                >
                   <Dropdown.Menu>
                     <Dropdown.Menu scrolling>
                       {tagOptions.map((option) => (
@@ -139,9 +144,10 @@ class Dashboard extends Component {
                     </Dropdown.Menu>
                   </Dropdown.Menu>
                 </Dropdown>
-              </Menu.Item>
-            </Menu.Menu>
-          </Menu>
+              </Form.Field>
+            </div>
+          </div>
+          {/* </Menu> */}
         </div>
 
         <div className="search-lable-container">
