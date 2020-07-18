@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import ReactModal from "react-modal";
+import { Icon } from "semantic-ui-react";
 
 ReactModal.setAppElement("#root");
 
@@ -14,8 +15,14 @@ class Modal extends Component {
           onRequestClose={() => this.props.modalAction()}
           contentLabel="Example Modal"
         >
-          <button onClick={() => this.props.modalAction()}>close</button>
-
+          <div className="icon-position">
+            <Icon
+              link
+              size="large"
+              name="window close "
+              onClick={() => this.props.modalAction()}
+            />
+          </div>
           {this.props.render}
         </ReactModal>
       </div>
