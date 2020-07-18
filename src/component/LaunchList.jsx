@@ -1,9 +1,33 @@
 import React, { Component } from "react";
-
+import Modal from "./Modal";
+import LaunchShow from "./LaunchShow";
 class LaunchList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedLaunchDetail: null,
+    };
+  }
+
+  modalClose = () => {
+    this.setState({ selectedLaunchDetail: null });
+  };
+
   render() {
+    let { selectedLaunchDetail } = this.state;
     return (
       <>
+        {selectedLaunchDetail ? (
+          <Modal
+            modalAction={this.modalClose}
+            modalIsOpen={true}
+            render={
+              <LaunchShow name="reettik" launchDetail={selectedLaunchDetail} />
+            }
+          />
+        ) : (
+          ""
+        )}
         <table>
           <thead>
             <tr>
@@ -30,7 +54,11 @@ class LaunchList extends Component {
           <tbody>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((launch) => {
               return (
-                <tr>
+                <tr
+                  onClick={() =>
+                    this.setState({ selectedLaunchDetail: launch })
+                  }
+                >
                   <td data-column="Launched (UTC)">
                     {" "}
                     <nobr> 30 Jun 2020 20:10:00 </nobr>

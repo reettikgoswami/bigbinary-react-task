@@ -118,9 +118,11 @@ class Dashboard extends Component {
             activePage={4}
             boundaryRange={1}
             // onPageChange={this.handlePaginationChange}
-            size="small"
+            size="tiny"
             siblingRange={1}
             totalPages={10}
+            lastItem={null}
+            prevItem={null}
           />
         </div>
       </div>
