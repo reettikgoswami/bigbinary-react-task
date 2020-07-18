@@ -9,6 +9,8 @@ import {
   Pagination,
 } from "semantic-ui-react";
 
+import MessageBox from "./MessageBox";
+import Modal from "./Modal";
 import DatePicker from "react-datepicker";
 import LaunchList from "./LaunchList";
 const tagOptions = [
@@ -33,11 +35,63 @@ const tagOptions = [
 ];
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalIsOpen: true,
+    };
+  }
+
+  modalClose = () => {
+    this.setState({ modalIsOpen: false });
+  };
+  massageBoxStyle = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(255, 255, 255, 0.75)",
+      zIndex: 1000,
+    },
+    content: {
+      position: "absolute",
+      top: "40px",
+      left: "40px",
+      right: "40px",
+      bottom: "40px",
+      border: "1px solid #ccc",
+      background: "#fff",
+      overflow: "auto",
+      WebkitOverflowScrolling: "touch",
+      borderRadius: "4px",
+      outline: "none",
+      padding: "20px",
+      width: "450px",
+      height: "250px",
+      margin: "0 auto",
+    },
+  };
+
   render() {
+    let { modalIsOpen } = this.state;
     return (
       <div>
-        {/* navbar */}
-        <div className="ui container background-image">
+        {modalIsOpen ? (
+          <Modal
+            modalAction={this.modalClose}
+            modalIsOpen={true}
+            modalStyle={this.massageBoxStyle}
+            render={
+              <MessageBox message="start date and end date should not be out od the range" />
+            }
+          />
+        ) : (
+          ""
+        )}
+
+        <div className="ui container">
           <Menu secondary>
             <Form>
               <Form.Group>
@@ -118,9 +172,11 @@ class Dashboard extends Component {
             activePage={4}
             boundaryRange={1}
             // onPageChange={this.handlePaginationChange}
-            size="small"
+            size="tiny"
             siblingRange={1}
             totalPages={10}
+            lastItem={null}
+            prevItem={null}
           />
         </div>
       </div>

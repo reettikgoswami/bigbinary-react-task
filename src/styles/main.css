@@ -49,6 +49,74 @@ th {
 .pagination-component-wrapper {
   margin: 30px 0px 40px 0px;
 }
+.modal_container {
+  /* height: 100vh; */
+  max-width: 550px;
+  margin: 0 auto;
+}
+.flex {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.responsive_image_container {
+  object-fit: cover;
+}
+.grid_margin {
+  margin: 30px 10px !important;
+}
+.launch_information_wrapper {
+  max-width: 520px;
+  height: 350px;
+  margin: 0px auto;
+  padding: 5px 3px 5px 2px;
+}
+.launch_information_wrapper .flex {
+  padding: 4px 0px;
+  margin-bottom: 2px;
+}
+.title {
+  width: 25%;
+}
+.detail {
+  width: 70%;
+}
+.detail .description {
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 3px;
+  line-height: 1.1;
+  font-size: 15px;
+}
+.title .field {
+  text-align: right;
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+.modal_link_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.modal_link_wrapper a {
+  margin-left: 8px;
+  color: black;
+}
+
+@media only screen and (max-width: 700px) {
+  .title {
+    width: 30%;
+  }
+  .detail {
+    width: 65%;
+  }
+  .mobile_view_hidden {
+    display: none !important;
+  }
+}
 
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
