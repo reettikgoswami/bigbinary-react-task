@@ -26,8 +26,8 @@ class LaunchList extends Component {
     content: {
       position: "absolute",
       top: "40px",
-      // left: "40px",
-      // right: "40px",
+      left: "40px",
+      right: "40px",
       bottom: "40px",
       border: "1px solid #ccc",
       background: "#fff",
@@ -36,9 +36,8 @@ class LaunchList extends Component {
       borderRadius: "4px",
       outline: "none",
       padding: "20px",
-      "max-width": "640px",
+      maxWidth: "700px",
       margin: "0 auto",
-      zIndex: 1000,
     },
   };
 
@@ -105,7 +104,7 @@ class LaunchList extends Component {
                   <td data-column="Launch Status">
                     <nobr>
                       {" "}
-                      <div class="ui medium label green">success</div>{" "}
+                      <div className="ui medium label green">success</div>{" "}
                     </nobr>
                   </td>
                   <td data-column="Rocket">

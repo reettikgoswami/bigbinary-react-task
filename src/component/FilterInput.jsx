@@ -99,7 +99,7 @@ class FilterInput extends Component {
                       />
                     </Form.Field>
 
-                    <Form.Field className=" text-align-center">
+                    <Form.Field className="text-align-center">
                       <label>End Date</label>
                       <DatePicker
                         // selected="2020/8/8"
