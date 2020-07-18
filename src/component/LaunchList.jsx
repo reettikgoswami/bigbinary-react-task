@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Modal from "./Modal";
 import LaunchShow from "./LaunchShow";
+
 class LaunchList extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +13,33 @@ class LaunchList extends Component {
   modalClose = () => {
     this.setState({ selectedLaunchDetail: null });
   };
+  modalStyle = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(255, 255, 255, 0.75)",
+      zIndex: 1000,
+    },
+    content: {
+      position: "absolute",
+      top: "40px",
+      left: "40px",
+      right: "40px",
+      bottom: "40px",
+      border: "1px solid #ccc",
+      background: "#fff",
+      overflow: "auto",
+      WebkitOverflowScrolling: "touch",
+      borderRadius: "4px",
+      outline: "none",
+      padding: "20px",
+      width: "600px",
+      margin: "0 auto",
+    },
+  };
 
   render() {
     let { selectedLaunchDetail } = this.state;
@@ -21,6 +49,7 @@ class LaunchList extends Component {
           <Modal
             modalAction={this.modalClose}
             modalIsOpen={true}
+            modalStyle={this.modalStyle}
             render={
               <LaunchShow name="reettik" launchDetail={selectedLaunchDetail} />
             }
