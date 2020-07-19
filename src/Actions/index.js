@@ -37,16 +37,11 @@ const generateQueryString = (searchParameters) => {
 export const fetchLaunchList = (searchParameters) => async (dispatch) => {
   try {
     const queryString = generateQueryString(searchParameters).join("&");
-    console.log(queryString);
     let response = await axios.get(
       `https://api.spacexdata.com/v3/launches?${queryString}`
     );
-    console.log(response);
     let searchResultCount = response.headers["spacex-api-count"];
     let LaunchList = response.data;
-
-    console.log(searchResultCount);
-    console.log(LaunchList);
     dispatch({
       type: "FETCH_LAUNCH_LIST",
       payload: { searchResultCount, LaunchList },

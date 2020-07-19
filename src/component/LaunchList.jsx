@@ -5,7 +5,7 @@ import moment from "moment";
 import Modal from "./Modal";
 import LaunchShow from "./LaunchShow";
 import { fetchLaunchList } from "../Actions/index";
-
+import { renderLaunchStatusLable } from "../utils/index";
 class LaunchList extends Component {
   constructor(props) {
     super(props);
@@ -25,18 +25,6 @@ class LaunchList extends Component {
       });
     }
   }
-
-  renderLaunchStatusLable = (isUpcomming, launchStatus, launch) => {
-    if (isUpcomming) {
-      return <div className="ui medium label yellow">Upcomming</div>;
-    } else {
-      if (launchStatus) {
-        return <div className="ui medium label green">successful</div>;
-      } else {
-        return <div className="ui medium label red">Failed</div>;
-      }
-    }
-  };
 
   isPropsChange = (prevProps, prevState) => {
     if (prevState.selectedLaunch !== this.state.selectedLaunch) {
@@ -92,7 +80,7 @@ class LaunchList extends Component {
             modalAction={this.modalClose}
             modalIsOpen={true}
             modalStyle={this.modalStyle}
-            render={<LaunchShow name="reettik" launchDetail={selectedLaunch} />}
+            render={<LaunchShow launchDetail={selectedLaunch} />}
           />
         ) : (
           ""
@@ -149,10 +137,9 @@ class LaunchList extends Component {
                   <td data-column="Launch Status">
                     <nobr>
                       {" "}
-                      {this.renderLaunchStatusLable(
+                      {renderLaunchStatusLable(
                         launch.upcoming,
-                        launch.launch_success,
-                        launch
+                        launch.launch_success
                       )}
                     </nobr>
                   </td>

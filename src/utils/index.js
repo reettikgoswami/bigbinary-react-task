@@ -1,3 +1,4 @@
+import React from "react";
 import moment from "moment";
 
 const validateDates = ({ startDate, endDate }) => {
@@ -11,4 +12,16 @@ const validateDates = ({ startDate, endDate }) => {
   return true;
 };
 
-export { validateDates };
+const renderLaunchStatusLable = (isUpcomming, launchStatus) => {
+  if (isUpcomming) {
+    return <div className="ui medium label yellow">Upcomming</div>;
+  } else {
+    if (launchStatus) {
+      return <div className="ui medium label green">successful</div>;
+    } else {
+      return <div className="ui medium label red">Failed</div>;
+    }
+  }
+};
+
+export { validateDates, renderLaunchStatusLable };
