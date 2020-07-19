@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import moment from "moment";
 import DatePicker from "react-datepicker";
 import { Checkbox, Dropdown, Form, Header, Label } from "semantic-ui-react";
 
@@ -44,12 +43,27 @@ class FilterInput extends Component {
     });
   };
 
-  handelLaunchStatusInput = () => {
+  handelLaunchStatus = (launchStatus) => {
+    console.log(launchStatus);
     if (this.props.isUpcomingLaunch) {
-      this.setState({
+      return this.setState({
         errorMassage:
           "You selected as a upcomming launch so you cant select launch status",
       });
+    } else {
+      if (launchStatus === "All") {
+        return this.props.updateStateWithFilterParameter({
+          launchStatus: "all",
+        });
+      } else if (launchStatus === "Successfull") {
+        return this.props.updateStateWithFilterParameter({
+          launchStatus: "Successfull",
+        });
+      } else {
+        return this.props.updateStateWithFilterParameter({
+          launchStatus: "Failed",
+        });
+      }
     }
   };
   closeModal = () => {
@@ -172,9 +186,7 @@ class FilterInput extends Component {
                         <Dropdown.Item
                           key={option.value}
                           {...option}
-                          onClick={() =>
-                            this.handelLaunchStatusInput(option.value)
-                          }
+                          onClick={() => this.handelLaunchStatus(option.value)}
                         />
                       ))}
                     </Dropdown.Menu>
@@ -220,6 +232,7 @@ const mapStateToProps = (state) => {
     startDate: state.startDate,
     endDate: state.endDate,
     isUpcomingLaunch: state.isUpcomingLaunch,
+    launchStatus: state.launchStatus,
   };
 };
 export default connect(mapStateToProps, { updateStateWithFilterParameter })(

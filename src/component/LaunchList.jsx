@@ -23,6 +23,7 @@ class LaunchList extends Component {
         startDate: this.props.startDate,
         endDate: this.props.endDate,
         isUpcomingLaunch: this.props.isUpcomingLaunch,
+        launchStatus: this.props.launchStatus,
       });
     }
   }
@@ -34,7 +35,8 @@ class LaunchList extends Component {
       if (
         prevProps.startDate === this.props.startDate &&
         prevProps.endDate === this.props.endDate &&
-        prevProps.isUpcomingLaunch === this.props.isUpcomingLaunch
+        prevProps.isUpcomingLaunch === this.props.isUpcomingLaunch &&
+        prevProps.launchStatus === this.props.launchStatus
       ) {
         return false;
       }
