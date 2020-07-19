@@ -22,6 +22,7 @@ class LaunchList extends Component {
       return this.props.fetchLaunchList({
         startDate: this.props.startDate,
         endDate: this.props.endDate,
+        isUpcomingLaunch: this.props.isUpcomingLaunch,
       });
     }
   }
@@ -32,7 +33,8 @@ class LaunchList extends Component {
     } else {
       if (
         prevProps.startDate === this.props.startDate &&
-        prevProps.endDate === this.props.endDate
+        prevProps.endDate === this.props.endDate &&
+        prevProps.isUpcomingLaunch === this.props.isUpcomingLaunch
       ) {
         return false;
       }
@@ -73,6 +75,7 @@ class LaunchList extends Component {
   render() {
     let { selectedLaunch } = this.state;
     let { LaunchList } = this.props;
+    console.log(this.props, "launch list");
     return (
       <>
         {selectedLaunch ? (
@@ -114,7 +117,10 @@ class LaunchList extends Component {
           <tbody>
             {LaunchList.map((launch) => {
               return (
-                <tr onClick={() => this.setState({ selectedLaunch: launch })}>
+                <tr
+                  key={launch.flight_number}
+                  onClick={() => this.setState({ selectedLaunch: launch })}
+                >
                   <td data-column="Flight Number">
                     <nobr> {launch.flight_number} </nobr>
                   </td>

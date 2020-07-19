@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import moment from "moment";
+// import moment from "moment";
 import DatePicker from "react-datepicker";
 import { Checkbox, Dropdown, Form, Header, Label } from "semantic-ui-react";
 
@@ -37,6 +37,21 @@ class FilterInput extends Component {
       errorMassage: "",
     };
   }
+
+  toggleUpcommingLaunchInput = () => {
+    return this.props.updateStateWithFilterParameter({
+      isUpcomingLaunch: !this.props.isUpcomingLaunch,
+    });
+  };
+
+  handelLaunchStatusInput = () => {
+    if (this.props.isUpcomingLaunch) {
+      this.setState({
+        errorMassage:
+          "You selected as a upcomming launch so you cant select launch status",
+      });
+    }
+  };
   closeModal = () => {
     this.setState({ errorMassage: "" });
   };
@@ -82,7 +97,8 @@ class FilterInput extends Component {
 
   render() {
     let { errorMassage } = this.state;
-    let { startDate, endDate } = this.props;
+    let { startDate, endDate, isUpcomingLaunch } = this.props;
+
     return (
       <div>
         {errorMassage ? (
@@ -140,6 +156,8 @@ class FilterInput extends Component {
                   className="filter-inputs-font-style"
                   toggle
                   label="Upcomming Launches"
+                  checked={isUpcomingLaunch}
+                  onChange={this.toggleUpcommingLaunchInput}
                 />
               </Form.Field>
               <Form.Field className="filter-inputs-extra-margin">
@@ -148,10 +166,16 @@ class FilterInput extends Component {
                   icon="filter"
                   text="All Launches"
                 >
-                  <Dropdown.Menu>
+                  <Dropdown.Menu className="">
                     <Dropdown.Menu scrolling>
                       {launchStatusOption.map((option) => (
-                        <Dropdown.Item key={option.value} {...option} />
+                        <Dropdown.Item
+                          key={option.value}
+                          {...option}
+                          onClick={() =>
+                            this.handelLaunchStatusInput(option.value)
+                          }
+                        />
                       ))}
                     </Dropdown.Menu>
                   </Dropdown.Menu>
@@ -195,6 +219,7 @@ const mapStateToProps = (state) => {
   return {
     startDate: state.startDate,
     endDate: state.endDate,
+    isUpcomingLaunch: state.isUpcomingLaunch,
   };
 };
 export default connect(mapStateToProps, { updateStateWithFilterParameter })(

@@ -10,7 +10,7 @@ export const updateStateWithFilterParameter = (filterParameters) => {
 
 const generateQueryString = (searchParameters) => {
   let queryString = [];
-  let { startDate, endDate } = searchParameters;
+  let { startDate, endDate, isUpcomingLaunch } = searchParameters;
   if (startDate) {
     startDate = moment(startDate).format("YYYY-MM-DD");
     queryString.push(`start=${startDate}`);
@@ -31,14 +31,21 @@ const generateQueryString = (searchParameters) => {
       queryString.push(`start=${defaultEndDate}`);
     }
   }
-  return queryString;
+
+  queryString = queryString.join("&");
+
+  if (isUpcomingLaunch) {
+    return `/upcoming?${queryString}`;
+  } else {
+    return `?${queryString}`;
+  }
 };
 
 export const fetchLaunchList = (searchParameters) => async (dispatch) => {
   try {
-    const queryString = generateQueryString(searchParameters).join("&");
+    const queryString = generateQueryString(searchParameters);
     let response = await axios.get(
-      `https://api.spacexdata.com/v3/launches?${queryString}`
+      `https://api.spacexdata.com/v3/launches${queryString}`
     );
     let searchResultCount = response.headers["spacex-api-count"];
     let LaunchList = response.data;
