@@ -19,7 +19,7 @@ class Modal extends Component {
             <Icon
               link
               size="large"
-              name="window close "
+              name="window close"
               onClick={() => this.props.modalAction()}
             />
           </div>
