@@ -1,17 +1,58 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import moment from "moment";
+
 import Modal from "./Modal";
 import LaunchShow from "./LaunchShow";
+import { fetchLaunchList } from "../Actions/index";
 
 class LaunchList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedLaunchDetail: null,
+      selectedLaunch: null,
     };
   }
+  componentDidMount() {
+    this.props.fetchLaunchList({});
+  }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.isPropsChange(prevProps, prevState)) {
+      return this.props.fetchLaunchList({
+        startDate: this.props.startDate,
+        endDate: this.props.endDate,
+      });
+    }
+  }
+
+  renderLaunchStatusLable = (isUpcomming, launchStatus, launch) => {
+    if (isUpcomming) {
+      return <div className="ui medium label yellow">Upcomming</div>;
+    } else {
+      if (launchStatus) {
+        return <div className="ui medium label green">successful</div>;
+      } else {
+        return <div className="ui medium label red">Failed</div>;
+      }
+    }
+  };
+
+  isPropsChange = (prevProps, prevState) => {
+    if (prevState.selectedLaunch !== this.state.selectedLaunch) {
+      return false;
+    } else {
+      if (
+        prevProps.startDate === this.props.startDate &&
+        prevProps.endDate === this.props.endDate
+      ) {
+        return false;
+      }
+      return true;
+    }
+  };
   modalClose = () => {
-    this.setState({ selectedLaunchDetail: null });
+    this.setState({ selectedLaunch: null });
   };
   modalStyle = {
     overlay: {
@@ -42,17 +83,16 @@ class LaunchList extends Component {
   };
 
   render() {
-    let { selectedLaunchDetail } = this.state;
+    let { selectedLaunch } = this.state;
+    let { LaunchList } = this.props;
     return (
       <>
-        {selectedLaunchDetail ? (
+        {selectedLaunch ? (
           <Modal
             modalAction={this.modalClose}
             modalIsOpen={true}
             modalStyle={this.modalStyle}
-            render={
-              <LaunchShow name="reettik" launchDetail={selectedLaunchDetail} />
-            }
+            render={<LaunchShow name="reettik" launchDetail={selectedLaunch} />}
           />
         ) : (
           ""
@@ -60,6 +100,9 @@ class LaunchList extends Component {
         <table>
           <thead>
             <tr>
+              <th>
+                <nobr>Flight Number</nobr>
+              </th>
               <th>
                 <nobr> Launched (UTC) </nobr>
               </th>
@@ -81,34 +124,40 @@ class LaunchList extends Component {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((launch) => {
+            {LaunchList.map((launch) => {
               return (
-                <tr
-                  onClick={() =>
-                    this.setState({ selectedLaunchDetail: launch })
-                  }
-                >
+                <tr onClick={() => this.setState({ selectedLaunch: launch })}>
+                  <td data-column="Flight Number">
+                    <nobr> {launch.flight_number} </nobr>
+                  </td>
                   <td data-column="Launched (UTC)">
-                    {" "}
-                    <nobr> 30 Jun 2020 20:10:00 </nobr>
+                    <nobr>
+                      {moment(launch["launch_date_utc"])
+                        .utc()
+                        .format("DD MMMM YYYY HH:mm")}{" "}
+                    </nobr>
                   </td>
                   <td data-column="Location">
-                    <nobr> CCAFS SLC-40 </nobr>
+                    <nobr> {launch.launch_site.site_name} </nobr>
                   </td>
                   <td data-column="Mission">
-                    <nobr> Crew Dragon Demo 2 </nobr>
+                    <nobr> {launch.mission_name} </nobr>
                   </td>
                   <td data-column="Orbit">
-                    <nobr> MEO </nobr>
+                    <nobr>{launch.rocket.second_stage.payloads[0].orbit}</nobr>
                   </td>
                   <td data-column="Launch Status">
                     <nobr>
                       {" "}
-                      <div className="ui medium label green">success</div>{" "}
+                      {this.renderLaunchStatusLable(
+                        launch.upcoming,
+                        launch.launch_success,
+                        launch
+                      )}
                     </nobr>
                   </td>
                   <td data-column="Rocket">
-                    <nobr> Falcon 9 </nobr>
+                    <nobr> {launch.rocket.rocket_name}</nobr>
                   </td>
                 </tr>
               );
@@ -119,5 +168,9 @@ class LaunchList extends Component {
     );
   }
 }
-
-export default LaunchList;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+export default connect(mapStateToProps, { fetchLaunchList })(LaunchList);
