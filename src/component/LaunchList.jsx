@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-
+import { Segment, Loader, Dimmer } from "semantic-ui-react";
 import Modal from "./Modal";
 import LaunchShow from "./LaunchShow";
 import { fetchLaunchList } from "../Actions/index";
@@ -76,8 +76,7 @@ class LaunchList extends Component {
 
   render() {
     let { selectedLaunch } = this.state;
-    let { LaunchList } = this.props;
-    console.log(this.props, "launch list");
+    let { LaunchList, requestInProgress } = this.props;
     return (
       <>
         {selectedLaunch ? (
@@ -90,75 +89,85 @@ class LaunchList extends Component {
         ) : (
           ""
         )}
-        <table>
-          <thead>
-            <tr>
-              <th>
-                <nobr>Flight Number</nobr>
-              </th>
-              <th>
-                <nobr> Launched (UTC) </nobr>
-              </th>
-              <th>
-                <nobr> Location </nobr>
-              </th>
-              <th>
-                <nobr> Mission </nobr>
-              </th>
-              <th>
-                <nobr> Orbit </nobr>
-              </th>
-              <th>
-                <nobr> Launch Status</nobr>
-              </th>
-              <th>
-                <nobr> Rocket </nobr>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {LaunchList.map((launch) => {
-              return (
-                <tr
-                  key={launch.flight_number}
-                  onClick={() => this.setState({ selectedLaunch: launch })}
-                >
-                  <td data-column="Flight Number">
-                    <nobr> {launch.flight_number} </nobr>
-                  </td>
-                  <td data-column="Launched (UTC)">
-                    <nobr>
-                      {moment(launch["launch_date_utc"])
-                        .utc()
-                        .format("DD MMMM YYYY HH:mm")}{" "}
-                    </nobr>
-                  </td>
-                  <td data-column="Location">
-                    <nobr> {launch.launch_site.site_name} </nobr>
-                  </td>
-                  <td data-column="Mission">
-                    <nobr> {launch.mission_name} </nobr>
-                  </td>
-                  <td data-column="Orbit">
-                    <nobr>{launch.rocket.second_stage.payloads[0].orbit}</nobr>
-                  </td>
-                  <td data-column="Launch Status">
-                    <nobr>
-                      {" "}
-                      {renderLaunchStatusLable(
-                        launch.upcoming,
-                        launch.launch_success
-                      )}
-                    </nobr>
-                  </td>
-                  <td data-column="Rocket">
-                    <nobr> {launch.rocket.rocket_name}</nobr>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        {requestInProgress ? (
+          <Segment className="ui container loader-segemnt">
+            <Dimmer active inverted>
+              <Loader size="medium">Loading</Loader>
+            </Dimmer>
+          </Segment>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <nobr>Flight Number</nobr>
+                </th>
+                <th>
+                  <nobr> Launched (UTC) </nobr>
+                </th>
+                <th>
+                  <nobr> Location </nobr>
+                </th>
+                <th>
+                  <nobr> Mission </nobr>
+                </th>
+                <th>
+                  <nobr> Orbit </nobr>
+                </th>
+                <th>
+                  <nobr> Launch Status</nobr>
+                </th>
+                <th>
+                  <nobr> Rocket </nobr>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {LaunchList.map((launch) => {
+                return (
+                  <tr
+                    key={launch.flight_number}
+                    onClick={() => this.setState({ selectedLaunch: launch })}
+                  >
+                    <td data-column="Flight Number">
+                      <nobr> {launch.flight_number} </nobr>
+                    </td>
+                    <td data-column="Launched (UTC)">
+                      <nobr>
+                        {moment(launch["launch_date_utc"])
+                          .utc()
+                          .format("DD MMMM YYYY HH:mm")}{" "}
+                      </nobr>
+                    </td>
+                    <td data-column="Location">
+                      <nobr> {launch.launch_site.site_name} </nobr>
+                    </td>
+                    <td data-column="Mission">
+                      <nobr> {launch.mission_name} </nobr>
+                    </td>
+                    <td data-column="Orbit">
+                      <nobr>
+                        {launch.rocket.second_stage.payloads[0].orbit}
+                      </nobr>
+                    </td>
+                    <td data-column="Launch Status">
+                      <nobr>
+                        {" "}
+                        {renderLaunchStatusLable(
+                          launch.upcoming,
+                          launch.launch_success
+                        )}
+                      </nobr>
+                    </td>
+                    <td data-column="Rocket">
+                      <nobr> {launch.rocket.rocket_name}</nobr>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </>
     );
   }

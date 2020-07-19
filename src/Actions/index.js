@@ -4,13 +4,12 @@ import axios from "axios";
 export const updateStateWithFilterParameter = (filterParameters) => {
   return {
     type: "UPDATE_STATE_WITH_FILTER_PARAMETER",
-    payload: filterParameters,
+    payload: { ...filterParameters, requestInProgress: true },
   };
 };
 
 const generateQueryString = (searchParameters) => {
   let queryString = [];
-  console.log(searchParameters);
   let { startDate, endDate, isUpcomingLaunch, launchStatus } = searchParameters;
   if (startDate) {
     startDate = moment(startDate).format("YYYY-MM-DD");
@@ -57,7 +56,7 @@ export const fetchLaunchList = (searchParameters) => async (dispatch) => {
     let LaunchList = response.data;
     dispatch({
       type: "FETCH_LAUNCH_LIST",
-      payload: { searchResultCount, LaunchList },
+      payload: { searchResultCount, LaunchList, requestInProgress: false },
     });
   } catch (error) {
     console.log(error);

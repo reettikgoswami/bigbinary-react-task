@@ -127,6 +127,11 @@ th {
 .react-datepicker-popper {
   z-index: 3 !important;
 }
+.loader-segemnt {
+  height: 400px;
+  background-color: #d6e0e7;
+  /* height: "400px", backgroundColor: "" }} */
+}
 @media only screen and (max-width: 700px) {
   .title {
     width: 30%;

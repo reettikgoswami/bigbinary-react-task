@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker";
+import moment from "moment";
 import { Checkbox, Dropdown, Form, Header, Label } from "semantic-ui-react";
 
 import MessageBox from "./MessageBox";
@@ -44,7 +45,6 @@ class FilterInput extends Component {
   };
 
   handelLaunchStatus = (launchStatus) => {
-    console.log(launchStatus);
     if (this.props.isUpcomingLaunch) {
       return this.setState({
         errorMassage:
@@ -107,6 +107,33 @@ class FilterInput extends Component {
         errorMassage: "End date should be greater than Start date",
       });
     }
+  };
+
+  renderCurrentFilterLables = ({
+    startDate,
+    endDate,
+    isUpcomingLaunch,
+    launchStatus,
+  }) => {
+    return (
+      <Label.Group>
+        {startDate ? (
+          <Label color="orange">
+            Start-date {moment(startDate).format("MMMM-DD_YYYY")}
+          </Label>
+        ) : null}
+        {endDate ? (
+          <Label color="olive">
+            End-date {moment(endDate).format("MMMM-DD_YYYY")}
+          </Label>
+        ) : null}
+        {launchStatus === "Successfull" ? (
+          <Label color="green">Successfull</Label>
+        ) : null}
+        {launchStatus === "Failed" ? <Label color="red">Failed</Label> : null}
+        {isUpcomingLaunch ? <Label color="yellow">Upcomming</Label> : null}
+      </Label.Group>
+    );
   };
 
   render() {
@@ -205,23 +232,7 @@ class FilterInput extends Component {
           >
             Current Filters
           </Header>
-          <Label.Group>
-            <Label as="a" color="orange">
-              Start-date 2014/02/08
-            </Label>
-            <Label as="a" color="olive">
-              End-date 2014/02/08
-            </Label>
-            <Label as="a" color="green">
-              Successfull
-            </Label>
-            <Label as="a" color="red">
-              Failed
-            </Label>
-            <Label as="a" color="yellow">
-              Upcomming
-            </Label>
-          </Label.Group>
+          {this.renderCurrentFilterLables(this.props)}
         </div>
       </div>
     );
