@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import { Checkbox, Dropdown, Form, Header, Label } from "semantic-ui-react";
 
 import MessageBox from "./MessageBox";
 import Modal from "./Modal";
-import DatePicker from "react-datepicker";
+import { validateDates } from "../utils/index";
+import { updateStateWithFilterParameter } from "../Actions/index";
 
-import { Checkbox, Dropdown, Form, Header, Label } from "semantic-ui-react";
-
-const tagOptions = [
+const launchStatusOption = [
   {
     key: "All Launches",
     text: "All ",
@@ -26,15 +29,16 @@ const tagOptions = [
     label: { color: "red", empty: true, circular: true },
   },
 ];
+
 class FilterInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalIsOpen: false,
+      errorMassage: "",
     };
   }
-  modalClose = () => {
-    this.setState({ modalIsOpen: false });
+  closeModal = () => {
+    this.setState({ errorMassage: "" });
   };
   massageBoxStyle = {
     overlay: {
@@ -65,19 +69,28 @@ class FilterInput extends Component {
     },
   };
 
+  setDate = (e, { name, value }) => {
+    let { startDate, endDate } = this.props;
+    if (validateDates({ startDate, endDate, [name]: value })) {
+      return this.props.updateStateWithFilterParameter({ [name]: value });
+    } else {
+      return this.setState({
+        errorMassage: "End date should be greater than Start date",
+      });
+    }
+  };
+
   render() {
-    let { modalIsOpen } = this.state;
+    let { errorMassage } = this.state;
+    let { startDate, endDate } = this.props;
     return (
       <div>
-        {" "}
-        {modalIsOpen ? (
+        {errorMassage ? (
           <Modal
-            modalAction={this.modalClose}
+            modalAction={this.closeModal}
             modalIsOpen={true}
             modalStyle={this.massageBoxStyle}
-            render={
-              <MessageBox message="start date and end date should not be out od the range" />
-            }
+            render={<MessageBox message={errorMassage} />}
           />
         ) : (
           ""
@@ -91,10 +104,14 @@ class FilterInput extends Component {
                     <Form.Field className=" text-align-center">
                       <label>Start Date</label>
                       <DatePicker
-                        // selected="2020/7/7"
+                        selected={startDate}
                         selectsStart
                         isClearable
                         showYearDropdown
+                        dateFormat="yyyy/MM/dd"
+                        onChange={(e) =>
+                          this.setDate(e, { value: e, name: "startDate" })
+                        }
                         placeholderText="Start Date"
                       />
                     </Form.Field>
@@ -102,10 +119,14 @@ class FilterInput extends Component {
                     <Form.Field className="text-align-center">
                       <label>End Date</label>
                       <DatePicker
-                        // selected="2020/8/8"
+                        selected={endDate}
                         selectsStart
                         isClearable
                         showYearDropdown
+                        dateFormat="yyyy/MM/dd"
+                        onChange={(e) =>
+                          this.setDate(e, { value: e, name: "endDate" })
+                        }
                         placeholderText="End Date"
                       />
                     </Form.Field>
@@ -129,7 +150,7 @@ class FilterInput extends Component {
                 >
                   <Dropdown.Menu>
                     <Dropdown.Menu scrolling>
-                      {tagOptions.map((option) => (
+                      {launchStatusOption.map((option) => (
                         <Dropdown.Item key={option.value} {...option} />
                       ))}
                     </Dropdown.Menu>
@@ -170,5 +191,12 @@ class FilterInput extends Component {
     );
   }
 }
-
-export default FilterInput;
+const mapStateToProps = (state) => {
+  return {
+    startDate: state.startDate,
+    endDate: state.endDate,
+  };
+};
+export default connect(mapStateToProps, { updateStateWithFilterParameter })(
+  FilterInput
+);

@@ -1,15 +1,13 @@
 import React from "react";
 
 function MassageBox(props) {
+  console.log(props);
   return (
-    <div class="ui error message">
-      <div class="content">
-        <div class="header">Errors </div>
-        <ul class="list">
-          <li class="content">
-            You must include both a upper and lower case letters in your
-            password.
-          </li>
+    <div className="ui error message">
+      <div className="content">
+        <div className="header">Errors </div>
+        <ul className="list">
+          <li className="content">{props.message}</li>
         </ul>
       </div>
     </div>
