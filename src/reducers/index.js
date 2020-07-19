@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   LaunchList: [],
   searchResultCount: 0,
   isUpcomingLaunch: false,
+  launchStatus: "All",
 };
 
 let rootReducer = (state = INITIAL_STATE, action) => {
