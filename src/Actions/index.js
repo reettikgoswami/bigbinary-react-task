@@ -10,7 +10,8 @@ export const updateStateWithFilterParameter = (filterParameters) => {
 
 const generateQueryString = (searchParameters) => {
   let queryString = [];
-  let { startDate, endDate, isUpcomingLaunch } = searchParameters;
+  console.log(searchParameters);
+  let { startDate, endDate, isUpcomingLaunch, launchStatus } = searchParameters;
   if (startDate) {
     startDate = moment(startDate).format("YYYY-MM-DD");
     queryString.push(`start=${startDate}`);
@@ -30,6 +31,11 @@ const generateQueryString = (searchParameters) => {
       );
       queryString.push(`start=${defaultEndDate}`);
     }
+  }
+  if (launchStatus === "Successfull") {
+    queryString.push(`launch_success=true`);
+  } else if (launchStatus === "Failed") {
+    queryString.push(`launch_success=false`);
   }
 
   queryString = queryString.join("&");
