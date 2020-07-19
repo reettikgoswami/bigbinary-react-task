@@ -18,14 +18,14 @@ class LaunchList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.isPropsChange(prevProps, prevState)) {
-      return this.props.fetchLaunchList({
-        startDate: this.props.startDate,
-        endDate: this.props.endDate,
-        isUpcomingLaunch: this.props.isUpcomingLaunch,
-        launchStatus: this.props.launchStatus,
-      });
-    }
+    // if (this.isPropsChange(prevProps, prevState)) {
+    //   return this.props.fetchLaunchList({
+    //     startDate: this.props.startDate,
+    //     endDate: this.props.endDate,
+    //     isUpcomingLaunch: this.props.isUpcomingLaunch,
+    //     launchStatus: this.props.launchStatus,
+    //   });
+    // }
   }
 
   isPropsChange = (prevProps, prevState) => {
