@@ -3,7 +3,10 @@ const INITIAL_STATE = {
   endDate: null,
   LaunchList: [],
   searchResultCount: 0,
+  activePage: 1,
   isUpcomingLaunch: false,
+  launchStatus: "",
+  requestInProgress: true,
 };
 
 let rootReducer = (state = INITIAL_STATE, action) => {

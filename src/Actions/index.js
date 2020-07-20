@@ -1,44 +1,12 @@
-import moment from "moment";
 import axios from "axios";
+
+import { generateQueryString } from "../utils/index";
 
 export const updateStateWithFilterParameter = (filterParameters) => {
   return {
     type: "UPDATE_STATE_WITH_FILTER_PARAMETER",
-    payload: filterParameters,
+    payload: { ...filterParameters, requestInProgress: true },
   };
-};
-
-const generateQueryString = (searchParameters) => {
-  let queryString = [];
-  let { startDate, endDate, isUpcomingLaunch } = searchParameters;
-  if (startDate) {
-    startDate = moment(startDate).format("YYYY-MM-DD");
-    queryString.push(`start=${startDate}`);
-    if (!endDate) {
-      let defaultEndDate = moment("2050-03-24T22:30:00.000Z").format(
-        "YYYY-MM-DD"
-      );
-      queryString.push(`end=${defaultEndDate}`);
-    }
-  }
-  if (endDate) {
-    endDate = moment(endDate).format("YYYY-MM-DD");
-    queryString.push(`end=${endDate}`);
-    if (!startDate) {
-      let defaultEndDate = moment("2005-03-24T22:30:00.000Z").format(
-        "YYYY-MM-DD"
-      );
-      queryString.push(`start=${defaultEndDate}`);
-    }
-  }
-
-  queryString = queryString.join("&");
-
-  if (isUpcomingLaunch) {
-    return `/upcoming?${queryString}`;
-  } else {
-    return `?${queryString}`;
-  }
 };
 
 export const fetchLaunchList = (searchParameters) => async (dispatch) => {
@@ -51,7 +19,7 @@ export const fetchLaunchList = (searchParameters) => async (dispatch) => {
     let LaunchList = response.data;
     dispatch({
       type: "FETCH_LAUNCH_LIST",
-      payload: { searchResultCount, LaunchList },
+      payload: { searchResultCount, LaunchList, requestInProgress: false },
     });
   } catch (error) {
     console.log(error);

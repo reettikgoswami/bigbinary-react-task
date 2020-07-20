@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import moment from "moment";
 import DatePicker from "react-datepicker";
+import moment from "moment";
 import { Checkbox, Dropdown, Form, Header, Label } from "semantic-ui-react";
 
 import MessageBox from "./MessageBox";
@@ -30,6 +30,35 @@ const launchStatusOption = [
   },
 ];
 
+const massageBoxStyle = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    zIndex: 1000,
+  },
+  content: {
+    position: "absolute",
+    top: "40px",
+    left: "0px",
+    right: "0px",
+    bottom: "40px",
+    border: "1px solid #ccc",
+    background: "#fff",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "4px",
+    outline: "none",
+    padding: "20px",
+    maxWidth: "450px",
+    height: "250px",
+    margin: "0 auto",
+  },
+};
+
 class FilterInput extends Component {
   constructor(props) {
     super(props);
@@ -39,55 +68,70 @@ class FilterInput extends Component {
   }
 
   toggleUpcommingLaunchInput = () => {
-    return this.props.updateStateWithFilterParameter({
-      isUpcomingLaunch: !this.props.isUpcomingLaunch,
-    });
+    if (this.props.launchStatus === "All" || this.props.launchStatus === "") {
+      return this.props.updateStateWithFilterParameter({
+        isUpcomingLaunch: !this.props.isUpcomingLaunch,
+        activePage: 1,
+      });
+    } else {
+      this.setState({
+        errorMassage: (
+          <p>
+            Can not apply <strong> Upcomming Launches </strong> filter because
+            you have already selected{" "}
+            <strong> {this.props.launchStatus} Launches. </strong>
+            <br />
+            Both filter yield 0 result.
+          </p>
+        ),
+      });
+    }
   };
 
-  handelLaunchStatusInput = () => {
-    if (this.props.isUpcomingLaunch) {
-      this.setState({
-        errorMassage:
-          "You selected as a upcomming launch so you cant select launch status",
+  handelLaunchStatus = (launchStatus) => {
+    if (this.props.isUpcomingLaunch && launchStatus !== "All") {
+      return this.setState({
+        errorMassage: (
+          <p>
+            Can not apply <strong> Launch status </strong> filter because you
+            have already selected <strong> Upcomming Launches </strong>
+            <br />
+            Both filter yield 0 result
+          </p>
+        ),
       });
+    } else {
+      if (this.props.launchStatus === launchStatus) {
+        return;
+      } else if (launchStatus === "All") {
+        return this.props.updateStateWithFilterParameter({
+          launchStatus: "All",
+          activePage: 1,
+        });
+      } else if (launchStatus === "Successfull") {
+        return this.props.updateStateWithFilterParameter({
+          launchStatus: "Successfull",
+          activePage: 1,
+        });
+      } else {
+        return this.props.updateStateWithFilterParameter({
+          launchStatus: "Failed",
+          activePage: 1,
+        });
+      }
     }
   };
   closeModal = () => {
     this.setState({ errorMassage: "" });
   };
-  massageBoxStyle = {
-    overlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: "rgba(255, 255, 255, 0.75)",
-      zIndex: 1000,
-    },
-    content: {
-      position: "absolute",
-      top: "40px",
-      left: "40px",
-      right: "40px",
-      bottom: "40px",
-      border: "1px solid #ccc",
-      background: "#fff",
-      overflow: "auto",
-      WebkitOverflowScrolling: "touch",
-      borderRadius: "4px",
-      outline: "none",
-      padding: "20px",
-      width: "450px",
-      height: "250px",
-      margin: "0 auto",
-    },
-  };
 
   setDate = (e, { name, value }) => {
     let { startDate, endDate } = this.props;
     if (validateDates({ startDate, endDate, [name]: value })) {
-      return this.props.updateStateWithFilterParameter({ [name]: value });
+      return this.props.updateStateWithFilterParameter({
+        [name]: value,
+        activePage: 1,
+      });
     } else {
       return this.setState({
         errorMassage: "End date should be greater than Start date",
@@ -95,9 +139,36 @@ class FilterInput extends Component {
     }
   };
 
+  renderCurrentFilterLables = ({
+    startDate,
+    endDate,
+    isUpcomingLaunch,
+    launchStatus,
+  }) => {
+    return (
+      <Label.Group>
+        {startDate ? (
+          <Label color="orange">
+            Start-date {moment(startDate).format("MMMM-DD_YYYY")}
+          </Label>
+        ) : null}
+        {endDate ? (
+          <Label color="olive">
+            End-date {moment(endDate).format("MMMM-DD_YYYY")}
+          </Label>
+        ) : null}
+        {launchStatus === "Successfull" ? (
+          <Label color="green">Successfull</Label>
+        ) : null}
+        {launchStatus === "Failed" ? <Label color="red">Failed</Label> : null}
+        {isUpcomingLaunch ? <Label color="yellow">Upcomming</Label> : null}
+      </Label.Group>
+    );
+  };
+
   render() {
     let { errorMassage } = this.state;
-    let { startDate, endDate, isUpcomingLaunch } = this.props;
+    let { startDate, endDate, isUpcomingLaunch, launchStatus } = this.props;
 
     return (
       <div>
@@ -105,7 +176,7 @@ class FilterInput extends Component {
           <Modal
             modalAction={this.closeModal}
             modalIsOpen={true}
-            modalStyle={this.massageBoxStyle}
+            modalStyle={{ ...massageBoxStyle }}
             render={<MessageBox message={errorMassage} />}
           />
         ) : (
@@ -164,17 +235,16 @@ class FilterInput extends Component {
                 <Dropdown
                   className="filter-inputs-font-style"
                   icon="filter"
-                  text="All Launches"
+                  text={`${launchStatus} Launches`}
                 >
-                  <Dropdown.Menu className="">
+                  <Dropdown.Menu>
                     <Dropdown.Menu scrolling>
                       {launchStatusOption.map((option) => (
                         <Dropdown.Item
+                          // className="disabled"
                           key={option.value}
                           {...option}
-                          onClick={() =>
-                            this.handelLaunchStatusInput(option.value)
-                          }
+                          onClick={() => this.handelLaunchStatus(option.value)}
                         />
                       ))}
                     </Dropdown.Menu>
@@ -193,23 +263,7 @@ class FilterInput extends Component {
           >
             Current Filters
           </Header>
-          <Label.Group>
-            <Label as="a" color="orange">
-              Start-date 2014/02/08
-            </Label>
-            <Label as="a" color="olive">
-              End-date 2014/02/08
-            </Label>
-            <Label as="a" color="green">
-              Successfull
-            </Label>
-            <Label as="a" color="red">
-              Failed
-            </Label>
-            <Label as="a" color="yellow">
-              Upcomming
-            </Label>
-          </Label.Group>
+          {this.renderCurrentFilterLables(this.props)}
         </div>
       </div>
     );
@@ -220,6 +274,7 @@ const mapStateToProps = (state) => {
     startDate: state.startDate,
     endDate: state.endDate,
     isUpcomingLaunch: state.isUpcomingLaunch,
+    launchStatus: state.launchStatus,
   };
 };
 export default connect(mapStateToProps, { updateStateWithFilterParameter })(
