@@ -27,9 +27,11 @@ table {
 
 tr:nth-of-type(odd) {
   background: #eee;
+  cursor: pointer;
 }
 tr:nth-of-type(even) {
   background: white;
+  cursor: pointer;
 }
 
 th {
@@ -56,7 +58,7 @@ th {
   margin: 30px 0px 40px 0px;
 }
 .modal_container {
-  max-width: 550px;
+  max-width: 640px;
   margin: 0 auto;
 }
 .flex {
@@ -73,7 +75,7 @@ th {
   margin: 30px 10px !important;
 }
 .launch_information_wrapper {
-  max-width: 600px;
+  max-width: 100%;
   margin: 0px auto;
   padding: 5px 3px 5px 2px;
 }

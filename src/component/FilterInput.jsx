@@ -30,11 +30,40 @@ const launchStatusOption = [
   },
 ];
 
+const massageBoxStyle = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    zIndex: 1000,
+  },
+  content: {
+    position: "absolute",
+    top: "40px",
+    left: "0px",
+    right: "0px",
+    bottom: "40px",
+    border: "1px solid #ccc",
+    background: "#fff",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "4px",
+    outline: "none",
+    padding: "20px",
+    maxWidth: "450px",
+    height: "250px",
+    margin: "0 auto",
+  },
+};
+
 class FilterInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errorMassage: "End date should be greater than Start date",
+      errorMassage: "cecece",
     };
   }
 
@@ -45,7 +74,7 @@ class FilterInput extends Component {
         activePage: 1,
       });
     } else {
-      this.setState({ errorMassage: "toggle input" });
+      this.setState({ errorMassage: ` ${this.props.launchStatus} ` });
     }
   };
 
@@ -76,34 +105,6 @@ class FilterInput extends Component {
   };
   closeModal = () => {
     this.setState({ errorMassage: "" });
-  };
-  massageBoxStyle = {
-    overlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: "rgba(255, 255, 255, 0.75)",
-      zIndex: 1000,
-    },
-    content: {
-      position: "absolute",
-      top: "40px",
-      left: "40px",
-      right: "40px",
-      bottom: "40px",
-      border: "1px solid #ccc",
-      background: "#fff",
-      overflow: "auto",
-      WebkitOverflowScrolling: "touch",
-      borderRadius: "4px",
-      outline: "none",
-      padding: "20px",
-      width: "450px",
-      height: "250px",
-      margin: "0 auto",
-    },
   };
 
   setDate = (e, { name, value }) => {
@@ -149,7 +150,7 @@ class FilterInput extends Component {
 
   render() {
     let { errorMassage } = this.state;
-    let { startDate, endDate, isUpcomingLaunch } = this.props;
+    let { startDate, endDate, isUpcomingLaunch, launchStatus } = this.props;
 
     return (
       <div>
@@ -157,7 +158,7 @@ class FilterInput extends Component {
           <Modal
             modalAction={this.closeModal}
             modalIsOpen={true}
-            modalStyle={this.massageBoxStyle}
+            modalStyle={{ ...massageBoxStyle }}
             render={<MessageBox message={errorMassage} />}
           />
         ) : (
@@ -216,9 +217,9 @@ class FilterInput extends Component {
                 <Dropdown
                   className="filter-inputs-font-style"
                   icon="filter"
-                  text="All Launches"
+                  text={`${launchStatus} Launches`}
                 >
-                  <Dropdown.Menu className="">
+                  <Dropdown.Menu>
                     <Dropdown.Menu scrolling>
                       {launchStatusOption.map((option) => (
                         <Dropdown.Item

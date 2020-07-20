@@ -48,7 +48,6 @@ const generateQueryString = (searchParameters) => {
     queryString.push(`limit=${limit}`);
     queryString.push(`offset=${offset}`);
   }
-  console.log(activePage, "active page");
   queryString = queryString.join("&");
 
   if (isUpcomingLaunch) {

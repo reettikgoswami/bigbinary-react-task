@@ -5,7 +5,7 @@ function MassageBox(props) {
   console.log(props);
   return (
     <>
-      <div class="ui">
+      <div className="ui">
         <Header as="h3">
           <Icon name="warning" color="" />
           <Header.Content className="warning">Warning</Header.Content>
