@@ -63,31 +63,49 @@ class FilterInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errorMassage: "cecece",
+      errorMassage: "",
     };
   }
 
   toggleUpcommingLaunchInput = () => {
-    if (this.props.launchStatus === "All") {
+    if (this.props.launchStatus === "All" || this.props.launchStatus === "") {
       return this.props.updateStateWithFilterParameter({
         isUpcomingLaunch: !this.props.isUpcomingLaunch,
         activePage: 1,
       });
     } else {
-      this.setState({ errorMassage: ` ${this.props.launchStatus} ` });
+      this.setState({
+        errorMassage: (
+          <p>
+            Can not apply <strong> Upcomming Launches </strong> filter because
+            you have already selected{" "}
+            <strong> {this.props.launchStatus} Launches. </strong>
+            <br />
+            Both filter yield 0 result.
+          </p>
+        ),
+      });
     }
   };
 
   handelLaunchStatus = (launchStatus) => {
-    if (this.props.isUpcomingLaunch) {
+    if (this.props.isUpcomingLaunch && launchStatus !== "All") {
       return this.setState({
-        errorMassage:
-          "You selected as a upcomming launch so you cant select launch status",
+        errorMassage: (
+          <p>
+            Can not apply <strong> Launch status </strong> filter because you
+            have already selected <strong> Upcomming Launches </strong>
+            <br />
+            Both filter yield 0 result
+          </p>
+        ),
       });
     } else {
-      if (launchStatus === "All") {
+      if (this.props.launchStatus === launchStatus) {
+        return;
+      } else if (launchStatus === "All") {
         return this.props.updateStateWithFilterParameter({
-          launchStatus: "all",
+          launchStatus: "All",
           activePage: 1,
         });
       } else if (launchStatus === "Successfull") {
@@ -223,6 +241,7 @@ class FilterInput extends Component {
                     <Dropdown.Menu scrolling>
                       {launchStatusOption.map((option) => (
                         <Dropdown.Item
+                          // className="disabled"
                           key={option.value}
                           {...option}
                           onClick={() => this.handelLaunchStatus(option.value)}

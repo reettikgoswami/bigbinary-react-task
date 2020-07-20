@@ -55,6 +55,8 @@ class LaunchList extends Component {
         launchStatus: this.props.launchStatus,
         activePage: this.props.activePage,
       });
+    } else {
+      return;
     }
   }
 

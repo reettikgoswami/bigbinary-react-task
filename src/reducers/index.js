@@ -5,8 +5,8 @@ const INITIAL_STATE = {
   searchResultCount: 0,
   activePage: 1,
   isUpcomingLaunch: false,
-  launchStatus: "All",
-  requestInProgress: false,
+  launchStatus: "",
+  requestInProgress: true,
 };
 
 let rootReducer = (state = INITIAL_STATE, action) => {
