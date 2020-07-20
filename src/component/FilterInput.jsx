@@ -34,14 +34,19 @@ class FilterInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errorMassage: "",
+      errorMassage: "End date should be greater than Start date",
     };
   }
 
   toggleUpcommingLaunchInput = () => {
-    return this.props.updateStateWithFilterParameter({
-      isUpcomingLaunch: !this.props.isUpcomingLaunch,
-    });
+    if (this.props.launchStatus === "All") {
+      return this.props.updateStateWithFilterParameter({
+        isUpcomingLaunch: !this.props.isUpcomingLaunch,
+        activePage: 1,
+      });
+    } else {
+      this.setState({ errorMassage: "toggle input" });
+    }
   };
 
   handelLaunchStatus = (launchStatus) => {
@@ -54,14 +59,17 @@ class FilterInput extends Component {
       if (launchStatus === "All") {
         return this.props.updateStateWithFilterParameter({
           launchStatus: "all",
+          activePage: 1,
         });
       } else if (launchStatus === "Successfull") {
         return this.props.updateStateWithFilterParameter({
           launchStatus: "Successfull",
+          activePage: 1,
         });
       } else {
         return this.props.updateStateWithFilterParameter({
           launchStatus: "Failed",
+          activePage: 1,
         });
       }
     }
@@ -101,7 +109,10 @@ class FilterInput extends Component {
   setDate = (e, { name, value }) => {
     let { startDate, endDate } = this.props;
     if (validateDates({ startDate, endDate, [name]: value })) {
-      return this.props.updateStateWithFilterParameter({ [name]: value });
+      return this.props.updateStateWithFilterParameter({
+        [name]: value,
+        activePage: 1,
+      });
     } else {
       return this.setState({
         errorMassage: "End date should be greater than Start date",

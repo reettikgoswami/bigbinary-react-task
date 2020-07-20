@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import { Segment, Loader, Dimmer } from "semantic-ui-react";
+
 import Modal from "./Modal";
 import LaunchShow from "./LaunchShow";
 import { fetchLaunchList } from "../Actions/index";
@@ -14,18 +15,19 @@ class LaunchList extends Component {
     };
   }
   componentDidMount() {
-    this.props.fetchLaunchList({});
+    this.props.fetchLaunchList({ activePage: 1 });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // if (this.isPropsChange(prevProps, prevState)) {
-    //   return this.props.fetchLaunchList({
-    //     startDate: this.props.startDate,
-    //     endDate: this.props.endDate,
-    //     isUpcomingLaunch: this.props.isUpcomingLaunch,
-    //     launchStatus: this.props.launchStatus,
-    //   });
-    // }
+    if (this.isPropsChange(prevProps, prevState)) {
+      return this.props.fetchLaunchList({
+        startDate: this.props.startDate,
+        endDate: this.props.endDate,
+        isUpcomingLaunch: this.props.isUpcomingLaunch,
+        launchStatus: this.props.launchStatus,
+        activePage: this.props.activePage,
+      });
+    }
   }
 
   isPropsChange = (prevProps, prevState) => {
@@ -36,7 +38,8 @@ class LaunchList extends Component {
         prevProps.startDate === this.props.startDate &&
         prevProps.endDate === this.props.endDate &&
         prevProps.isUpcomingLaunch === this.props.isUpcomingLaunch &&
-        prevProps.launchStatus === this.props.launchStatus
+        prevProps.launchStatus === this.props.launchStatus &&
+        prevProps.activePage === this.props.activePage
       ) {
         return false;
       }
@@ -90,7 +93,7 @@ class LaunchList extends Component {
           ""
         )}
         {requestInProgress ? (
-          <Segment className="ui container loader-segemnt">
+          <Segment className="ui container loader-segment">
             <Dimmer active inverted>
               <Loader size="medium">Loading</Loader>
             </Dimmer>

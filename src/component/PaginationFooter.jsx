@@ -1,33 +1,45 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import { Pagination } from "semantic-ui-react";
 
+import { updateStateWithFilterParameter } from "../Actions/index";
+
 class PaginationFooter extends Component {
+  handlePaginationChange = (e, { activePage }) => {
+    this.props.updateStateWithFilterParameter({ activePage });
+  };
   render() {
+    let { searchResultCount, activePage } = this.props;
+    let maxLimit = 10;
     return (
-      <div className="text-align-center pagination-component-wrapper ">
-        <Pagination
-          activePage={5}
-          boundaryRange={1}
-          // onPageChange={this.handlePaginationChange}
-          size="tiny"
-          siblingRange={1}
-          totalPages={10}
-          firstItem={null}
-          lastItem={null}
-          prevItem={null}
-          nextItem={null}
-        />
-      </div>
+      <>
+        {searchResultCount > maxLimit ? (
+          <div className="text-align-center pagination-component-wrapper ">
+            <Pagination
+              activePage={activePage}
+              boundaryRange={1}
+              onPageChange={this.handlePaginationChange}
+              size="tiny"
+              siblingRange={1}
+              totalPages={Math.ceil(searchResultCount / maxLimit)}
+              firstItem={null}
+              lastItem={null}
+              prevItem={null}
+              nextItem={null}
+            />
+          </div>
+        ) : null}
+      </>
     );
   }
 }
 const mapStateToProps = (state) => {
-  console.log(state, "pagination compononet");
   return {
     searchResultCount: state.searchResultCount,
+    activePage: state.activePage,
   };
 };
 
-export default connect(mapStateToProps)(PaginationFooter);
+export default connect(mapStateToProps, { updateStateWithFilterParameter })(
+  PaginationFooter
+);

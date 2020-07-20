@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   endDate: null,
   LaunchList: [],
   searchResultCount: 0,
+  activePage: 1,
   isUpcomingLaunch: false,
   launchStatus: "All",
   requestInProgress: false,
